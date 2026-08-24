@@ -1,0 +1,132 @@
+PAYMENT RECOVERY POLICIES
+
+BANK_TIMEOUT
+Bank timeout occurs when the payment bank does not respond within the expected
+time window.
+
+Recommended action:
+Retry the payment using an alternate payment gateway.
+
+Reason:
+The failure may be specific to the current gateway or bank connection.
+Switching gateways can provide an independent payment route.
+
+Priority:
+High
+
+--------------------------------------------------
+
+NETWORK_ERROR
+Network error occurs when communication between the payment system and gateway
+is interrupted.
+
+Recommended action:
+Retry the payment using an alternate gateway.
+
+Reason:
+A temporary network problem may affect the current gateway connection.
+Using another gateway can restore connectivity.
+
+Priority:
+High
+
+--------------------------------------------------
+
+GATEWAY_ERROR
+Gateway error occurs when the selected payment gateway fails while processing
+the transaction.
+
+Recommended action:
+Switch to another available gateway and retry.
+
+Reason:
+The failure may be specific to the current payment gateway.
+
+Priority:
+High
+
+--------------------------------------------------
+
+RISK_BLOCK
+Risk block occurs when the transaction is blocked by fraud or risk-control
+systems.
+
+Recommended action:
+Do not automatically retry. Send the transaction for manual review.
+
+Reason:
+Repeated automatic retries could increase fraud risk.
+
+Priority:
+Critical
+
+--------------------------------------------------
+
+INSUFFICIENT_FUNDS
+Insufficient funds occurs when the customer's account does not have enough
+available balance.
+
+Recommended action:
+Do not retry automatically. Ask the customer to use another payment method
+or provide sufficient funds.
+
+Reason:
+Changing the gateway will not solve an insufficient-funds condition.
+
+Priority:
+High
+
+--------------------------------------------------
+
+RETRY POLICY
+Automatic retry should be limited to a small number of attempts.
+
+Recommended action:
+Use an alternate gateway for retryable failures.
+
+Do not continuously retry the same gateway because repeated failures can
+increase transaction latency and reduce payment reliability.
+
+--------------------------------------------------
+
+GATEWAY SELECTION POLICY
+Available gateways:
+Gateway_A
+Gateway_B
+Gateway_C
+
+When a retry is required, select an available gateway different from the
+gateway that produced the failure.
+
+The system should prefer an alternate gateway instead of repeatedly using the
+same failed gateway.
+
+--------------------------------------------------
+
+RECOVERY DECISION POLICY
+Retryable failures:
+BANK_TIMEOUT
+NETWORK_ERROR
+GATEWAY_ERROR
+
+Non-retryable failures:
+RISK_BLOCK
+INSUFFICIENT_FUNDS
+
+For retryable failures, the Recovery Agent should recommend an alternate
+gateway.
+
+For non-retryable failures, automatic retry should not be performed.
+
+--------------------------------------------------
+
+AI EXPLANATION POLICY
+The AI system should explain:
+1. Why the payment failed.
+2. What failure type was detected.
+3. Why a recovery action was selected.
+4. Which gateway was recommended.
+5. Whether the recovery attempt succeeded.
+
+The AI explanation must be based on the retrieved payment-recovery policy
+and the actual transaction information.
